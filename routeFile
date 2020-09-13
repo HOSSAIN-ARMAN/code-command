@@ -1,0 +1,7 @@
+
+<----------multiple image insert------start---------->
+Route::get('fashion-stories-details', 'FashionDetailsController@fshionDetails')->name('fashion.story.details');
+    Route::post('fashion-details-store', 'FashionDetailsController@store')->name('fashion.details.store');
+    Route::post('fashion-details-store/delete','FashionDetailsController@fileDestroy')->name('');
+
+<----------multiple image insert------End---------->

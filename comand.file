@@ -1,0 +1,2 @@
+ 1) php artisan migrate:refresh --path=/database/migrations/     2020_09_13_060724_create_fashion_details_table.php   [for single file migrate:fresh]
+
