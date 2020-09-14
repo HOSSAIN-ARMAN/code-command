@@ -32,3 +32,20 @@ class FashionDetailsController extends Controller
 
 <----------multiple image insert------End---------->
 
+<-------------recentView---session-work-------------->
+
+        session()->push('items.recently_viewed', $item->getKey());
+
+//        session_set_cookie_params(3); // Set session cookie duration to 1 hour
+//        session_start();
+//       session()->forget('items.recently_viewed', $item->getKey());
+//        Session::put('items', $item);
+
+<-------------recentView---session-work-end------------>
+
+
+
+
+
+
+

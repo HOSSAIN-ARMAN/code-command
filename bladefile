@@ -105,3 +105,27 @@
 <----------multiple image insert------End---------->
 
 
+<-------------recentView---session-work-------------->
+
+<div class="carousel" data-flickity='{ "freeScroll": true, "contain": true, "prevNextButtons": true, "pageDots": false  }'>
+                                        @if(session()->has('items.recently_viewed'))
+                                            @foreach(array_reverse(session()->get('items.recently_viewed')) as $item_id)
+                                                <div class="col-md-2">
+                                                    <div class="card" style="padding: 7px;border: 1px solid #8080803d;">
+                                                        <a href="{{ route('item.recently', ['id' => $item_id]) }}"><img src="/uploads/{{ App\Admin\Item::where('id', $item_id)->value('photo_1') }}" class="card-img-top" alt="..."style="width: 140px; height: 200px"></a>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">{{ App\Admin\Item::where('id', $item_id)->value('title')  }}</h5>
+                                                            <p class="card-text"> Price :  {{ App\Admin\Item::where('id', $item_id)->value('price') }}</p>
+{{--                                                           <p> Recent_view_id: {{ App\Admin\Item::where('id', $item_id)->value('id') }}</p>--}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+
+
+
+<-------------recentView---session-work-end------------>
+
+
