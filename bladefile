@@ -129,3 +129,74 @@
 <-------------recentView---session-work-end------------>
 
 
+
+
+
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Service;
+use Illuminate\Http\Request;
+use App\Traits\FileSaver;
+class ServiceController extends Controller
+{
+    use FileSaver;
+    private $service;
+    private $file;
+
+    public function index(){
+        return view('admin.service.index', [
+            'services' => Service::all()
+        ]);
+    }
+    public function create(){
+        return view('admin.service.create');
+    }
+    public function store(Request $request){
+        $this->validation($request);
+        $this->service = Service::create($this->serviceData($request));
+        $this->imageFileUpload($request->image, $this->service, 'image', "");
+        return redirect()->route('service.index')->with('success', 'Service added successfully');
+    }
+    public function edit($id){
+       return view('admin.service.edit', [
+           'service' => Service::find($id)
+       ]);
+    }
+
+    public function update(Request  $request){
+        $this->file = $request->file('image');
+        $this->service = Service::find($request->id);
+        if(isset($this->file)){
+            if(file_exists($this->service->image)){
+                unlink($this->service->image);
+            }
+            $this->imageFileUpload($request->image, $this->service, 'image', "");
+        }
+        $this->service->update($this->serviceData($request));
+        return redirect()->route('service.index')->with('success', 'Update added successfully');
+    }
+    public function delete($id){
+       Service::find($id)->delete();
+       return redirect()->route('service.index')->with('success', 'Your data Deleted SuccessFully');
+    }
+
+    private function serviceData($request){
+        $data['name']                   = $request->input('name');
+        $data['service_content']        = $request->input('service_content');
+        $data['status']                 = $request->input('status');
+        return $data;
+    }
+
+    public function validation($request) : void {
+        $this->validate($request, [
+            'name' => 'required',
+            'service_content' => 'required',
+            'status' => 'required',
+            'image' => 'required'
+        ]);
+    }
+}
+
+
